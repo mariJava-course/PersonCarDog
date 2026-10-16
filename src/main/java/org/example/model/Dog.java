@@ -1,6 +1,9 @@
 package org.example.model;
 
+import java.util.ArrayList;
+
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Dog {
 
@@ -8,7 +11,7 @@ public class Dog {
     private String name;
     private String breed;
     private int age;
-    private Person owner;
+    private ArrayList<Person> owners;
 
     public Dog() {}
 
@@ -17,6 +20,7 @@ public class Dog {
         this.name = name;
         this.breed = breed;
         this.age = age;
+        this.owners = new ArrayList<>();
     }
 
     public String getName() {
@@ -51,16 +55,16 @@ public class Dog {
         this.id = id;
     }
 
-    public Person getOwner() {
-        return owner;
+    public ArrayList<Person> getOwners() {
+        return owners;
     }
 
-    public void setOwner(Person person) {
-        this.owner = person;
+    public void setOwners(Person person) {
+        this.owners.add(person);
     }
 
     @Override
     public String toString() {
-        return "Dog{id='" + id + "', name='" + name + "', breed='" + breed + "', age=" + age + ", owner='"+ (owner == null ? "": owner.getName()) +"'}";
+        return "Dog{id='" + id + "', name='" + name + "', breed='" + breed + "', age=" + age + ", owner='"+ owners.stream().map(Person::getName).collect(Collectors.joining(", ")) +"'}";
     }
 }

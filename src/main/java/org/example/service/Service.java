@@ -437,14 +437,14 @@ public class Service {
         System.out.println("Fee valid: " + fee);
 
         // dog hasn't an owner
-        if (dog.getOwner() != null) {
+        if (dog.getOwners() != null) {
             System.out.println("Dog has already an owner .");
             return result.setter(false, "Dog has already an owner.", "DogAdoptions", System.currentTimeMillis());
         }
         System.out.println("Dog can be adopted.");
 
         adopter.getDogs().add(dog);
-        dog.setOwner(adopter);
+        dog.setOwners(adopter);
 
         System.out.println("Settings done, now creating DogAdoptions ...");
 
@@ -503,7 +503,7 @@ public class Service {
         Dog d = da.getDog();
 
         p.getDogs().removeIf(dog -> dog.getId().equalsIgnoreCase(d.getId()));
-        d.setOwner(null);
+        d.setOwners(null);
 
         boolean removed = repo.removeDogAdoption(id);
         if (removed) {
@@ -537,10 +537,10 @@ public class Service {
         }
         adoptionFound.setStatus(DogAdoption.Status.Returned);
         // Clear dog reference if owns one
-        Person p = d.getOwner();
+        Person p = d.getOwners();
         p.getDogs().removeIf(dog -> dog.getId().equalsIgnoreCase(d.getId()));
 
-        d.setOwner(null);
+        d.setOwners(null);
 
         return result.setter(true, "Dog has been returned.", "Dog", System.currentTimeMillis());
     }

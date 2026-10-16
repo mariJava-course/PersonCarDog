@@ -101,7 +101,7 @@ public class Repository {
         return dogs.removeIf(d -> d.getId().equals(id));
     }
     public Boolean deletePersonAtDog(Dog dog){
-        dog.setOwner(null);
+        dog.setOwners(null);
         return true;
     }
 
